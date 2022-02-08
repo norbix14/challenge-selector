@@ -1,0 +1,26 @@
+.main {
+  padding: 4rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: var(--min-height);
+  color: var(--color-white);
+}
+
+.selector-container h2 {
+  font-size: 4rem;
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+}
+
+.selector {
+  padding: 1rem;
+  width: 20rem;
+  border: none;
+}
+
+.selector:focus-visible {
+  outline: 2px solid var(--color-black);
+}
