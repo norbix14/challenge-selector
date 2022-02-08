@@ -1,10 +1,5 @@
 function Selector({ value, onChange, results }) {
   const isResults = results.length > 0
-  const EmptyOption = (
-    <option value="" disabled>
-      -- Seleccionar --
-    </option>
-  )
   return (
     <main className="main">
       <div className="selector-container">
@@ -19,7 +14,9 @@ function Selector({ value, onChange, results }) {
         >
           {isResults ? (
             <>
-              {EmptyOption}
+              <option value="" disabled>
+                -- Seleccionar --
+              </option>
               {results.map(({ id, name }) => (
                 <option key={id} value={name}>
                   {name}
@@ -27,9 +24,20 @@ function Selector({ value, onChange, results }) {
               ))}
             </>
           ) : (
-            { EmptyOption }
+            <option value="" disabled>
+              -- Seleccionar --
+            </option>
           )}
         </select>
+      </div>
+      <div className="selection">
+        {value ? (
+          <p>
+            Opción elegida: <span className="selected-item">{value}</span>
+          </p>
+        ) : (
+          <p>Ningún nombre fue elegido aún</p>
+        )}
       </div>
     </main>
   )

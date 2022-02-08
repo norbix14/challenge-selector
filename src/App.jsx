@@ -10,26 +10,24 @@ function App() {
   const [value, handleChange] = useHandlerChangeSelect('')
 
   useEffect(() => {
-    const fetchInfo = async () => {
+    const fetchInfo = async (url) => {
+      let names, data, response, status
       try {
-        const response = await fetchData(
-          'https://jsonplaceholder.typicode.com/users'
-        )
-        let names, data
-        const { status } = response
+        response = await fetchData(url)
+        status = response?.status || 500
         if (status !== 200) {
-          return alert('Ha ocurrido un error')
+          return alert(`Ha ocurrido un error. Error: ${status}`)
         }
         data = await response.json()
         names = data.map((user) => ({ id: user.id, name: user.name }))
         setResults(names)
       } catch (error) {
-        return alert('Ha ocurrido un error con la petición')
+        return alert(`Ha ocurrido un error con la petición. Error: ${status}`)
       } finally {
         setIsLoading(false)
       }
     }
-    fetchInfo()
+    fetchInfo('https://jsonplaceholder.typicode.com/users')
   }, [])
 
   return (
@@ -42,18 +40,7 @@ function App() {
           <p>cargando usuarios...</p>
         </div>
       ) : (
-        <>
-          <Selector value={value} onChange={handleChange} results={results} />
-          <div className="selection">
-            {value ? (
-              <p>
-                Opción elegida: <span className="selected-item">{value}</span>
-              </p>
-            ) : (
-              <p>Ningún nombre fue elegido aún</p>
-            )}
-          </div>
-        </>
+        <Selector value={value} onChange={handleChange} results={results} />
       )}
     </div>
   )
